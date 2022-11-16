@@ -17,9 +17,14 @@ function emoji_picker_install() {
 	Hook::register('jot_tool', 'addon/emoji_picker/emoji_picker.php', 'emoji_picker_jot_tool');
 }
 
-function emoji_picker_footer(App $a, string &$body) {
+function is_supported(App $a) {
 	// Disable for mobile because they have a smiley key of their own
-	if (DI::mode()->isMobile() || DI::mode()->isMobile()) {
+	// Disable for any theme not frio, as other themes are not yet supported.
+	return $a->getCurrentTheme() == 'frio' && DI::mode()->isMobile() == false;
+}
+
+function emoji_picker_footer(App $a, string &$body) {
+	if (is_supported($a)) {
 		return;
 	}
 
@@ -33,8 +38,7 @@ EOT;
 }
 
 function emoji_picker_jot_tool(App $a, string &$body) {
-	// Disable for mobile because they have a smiley key of their own
-	if (DI::mode()->isMobile() || DI::mode()->isMobile()) {
+	if (is_supported($a)) {
 		return;
 	}
 
