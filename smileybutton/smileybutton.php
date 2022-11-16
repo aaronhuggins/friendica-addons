@@ -114,7 +114,7 @@ function smileybutton_jot_tool(App $a, string &$body)
 	$image_url = DI::baseUrl()->get() . '/' . $image;
 
 	//Add the hmtl and script to the page
-	$body = <<< EOT
+	$body = ($body ?? '') . <<< EOT
 	<div id="profile-smiley-wrapper">
 		<button type="button" class="btn btn-link smiley_button" onclick="toggle_smileybutton()"><img src="$image_url" alt="smiley"></button>
 		<div id="smileybutton">
@@ -142,4 +142,3 @@ function smileybutton_jot_tool(App $a, string &$body)
 	</script>
 EOT;
 }
-
